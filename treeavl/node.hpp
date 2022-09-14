@@ -7,6 +7,12 @@
 class Node; // forward declaration
 using NodePtr = std::shared_ptr<Node>;
 
+/*********************************************************************
+*                                                                    *
+*                              D A T A                               *
+*                                                                    *
+*********************************************************************/
+
 struct Data {
 private:
     int64_t key_;
@@ -26,9 +32,15 @@ public:
         s << data.key_ << " => " << data.value_;
         return s;
     }
+    friend class Node;
+    friend class Tree;
 };
 
-
+/*********************************************************************
+*                                                                    *
+*                              N O D E                               *
+*                                                                    *
+*********************************************************************/
 
 class Node {
     Data data_;
@@ -50,10 +62,15 @@ public:
     Node& operator=(Node const&) = delete;
     Node& operator=(Node&&) = delete;
 
+    void print(std::string const&, int const) const noexcept;
+
+private:
     NodePtr single_rotation(NodePtr const, int const) noexcept;
     NodePtr double_rotation(NodePtr const, int const) noexcept;
     void adjust_balance(NodePtr const, int const, int const) noexcept;
     NodePtr insert_balance(NodePtr const, int const) noexcept;
     std::pair<NodePtr, bool> remove_balance(NodePtr const, int const) noexcept;
-    void print(std::string const&, int const) const noexcept;
+
+    friend class Tree;
+    
 };
