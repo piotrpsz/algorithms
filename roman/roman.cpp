@@ -106,11 +106,10 @@ string Roman::roman(int n) {
 }
 
 void Roman::test_integer() {
-    using Data = struct {
+    struct Data_ {
         string rom;
         int expected;
-    };
-    vector<Data> const tt {
+    } const tt [] = {
         {"I", 1},
         {"II", 2},
         {"III", 3},
@@ -146,7 +145,8 @@ void Roman::test_integer() {
         {"MMVI", 2006},
     };
 
-    for (int i = 0; i < tt.size(); i++) {
+    auto const n = sizeof(tt) / sizeof(tt[0]);
+    for (int i = 0; i < n; i++) {
         const auto [ok, v] = integer(tt[i].rom);
         if (!ok) {
             cout << "ERROR: invalid roman digit" << endl;
@@ -158,11 +158,10 @@ void Roman::test_integer() {
 }
 
 void Roman::test_roman() {
-    using Data = struct {
+    struct Data_ {
         string expected;
         int value;
-    };
-    vector<Data> const tt {
+    } const tt[] = {
         {"I", 1},
         {"II", 2},
         {"III", 3},
@@ -198,7 +197,8 @@ void Roman::test_roman() {
         {"MMVI", 2006},
     };
 
-    for (int i = 0; i < tt.size(); i++) {
+    auto const n = sizeof(tt) / sizeof(tt[0]);
+    for (int i = 0; i < n; i++) {
         const auto s = roman(tt[i].value);
         if (s != tt[i].expected) {
             cout << "ERROR: expected: " << tt[i].expected << " is " << s << endl;
