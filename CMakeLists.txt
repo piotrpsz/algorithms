@@ -6,14 +6,14 @@ set(CMAKE_CXX_STANDARD 20)
 add_subdirectory("lcs")
 add_subdirectory("way3")
 add_subdirectory("roman")
-add_subdirectory("treeavl")
+add_subdirectory("tree_avl")
 add_executable(algo main.cpp)
 
 target_link_libraries(algo PUBLIC
     lcs
     way3
     roman
-    treeavl)
+    tree_avl)
 
 target_include_directories(algo PUBLIC
                           "${PROJECT_BINARY_DIR}"

@@ -1,4 +1,6 @@
 .DS_Store
+*.a
+algo
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
