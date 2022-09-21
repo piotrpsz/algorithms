@@ -7,13 +7,15 @@ add_subdirectory("lcs")
 add_subdirectory("way3")
 add_subdirectory("roman")
 add_subdirectory("tree_avl")
+add_subdirectory("strings")
 add_executable(algo main.cpp)
 
 target_link_libraries(algo PUBLIC
     lcs
     way3
     roman
-    tree_avl)
+    tree_avl
+    strings)
 
 target_include_directories(algo PUBLIC
                           "${PROJECT_BINARY_DIR}"

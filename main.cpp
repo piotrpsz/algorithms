@@ -14,13 +14,16 @@
 #include "parser.hpp"
 #include "way3.hpp"
 #include "roman.hpp"
+#include "rabin-karp.hpp"
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
+	auto idx = RabinKarp::contains("Piotr x Pszczołkowski", "i", 2);
+	cout << idx << endl;
 	// Way3 w;
-	Roman::test_integer();
-	Roman::test_roman();
+	// Roman::test_integer();
+	// Roman::test_roman();
 	// auto r = Roman::integer("MMVI");
 	// cout << r << endl;
 	
