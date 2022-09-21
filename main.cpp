@@ -19,7 +19,7 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-	auto idx = RabinKarp::contains("Piotr x Pszczołkowski", "i", 2);
+	auto idx = RabinKarp::index_of("Piotr x Pszczolkowski", "i", 2);
 	cout << idx << endl;
 	// Way3 w;
 	// Roman::test_integer();
