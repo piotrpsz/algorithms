@@ -28,7 +28,7 @@ public:
 	Range(Range const&) = delete;
 	Range(Range&&) = delete;
 	Range& operator=(Range const&) = delete;
-	Range& operator=(Range&&) = delete;
+	Range& operator=(Range&&) = default;
 	~Range() = default;
 	
 	int start() const noexcept { return start_; }

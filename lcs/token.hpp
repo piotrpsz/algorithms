@@ -28,9 +28,9 @@ public:
 	{}
 	
 	Token(Token const&) = delete;
-	Token(Token&&) = delete;
+	Token(Token&&) = default;
 	Token& operator=(Token const&) = delete;
-	Token& operator=(Token&&) = delete;
+	Token& operator=(Token&&) = default;
 	~Token() = default;
 	
 	Range* a() const noexcept { return a_.get(); }

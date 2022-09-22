@@ -12,30 +12,32 @@
 #include <fstream>
 
 using namespace std;
+using namespace shared;
 
-Parser::Parser(std::vector<std::string> const& stringsA, std::vector<std::string> const& stringsB)
-: stringsA_(stringsA), stringsB_(stringsB)
+/**
+  Porownanie linii z wektorow A i B.
+  \param stringsA 
+  \param stringsB 
+ */
+Parser::Parser(vector<string> const& stringsA, vector<string> const& stringsB)
+: stringsA_(move(stringsA))
+, stringsB_(move(stringsB))
 {}
 
 /**
- Compare content of two files (a and B).
- \param path_a path of file A,
- \param path_b path of file B
+ Uzytkownik chce porownywac dwa pliku na dysku.
+ \param path_a sciezka do pliku A,
+ \param path_b sciezka do pliku B
  */
-Parser::Parser(string const& path_a, string const& path_b) {
-	auto const stringsA = shared::split(shared::file2str(path_a));
-	auto const stringsB = shared::split(shared::file2str(path_b));
+Parser::Parser(string const& path_a, string const& path_b)
+: Parser(split(file2str(path_a)), split(file2str(path_b)))
+{}
 
-	this->~Parser();
-	new (this) Parser(stringsA, stringsB);
-}
 
 bool Parser::run() {
-	if (auto const same = same_text(stringsA_, stringsB_); !same.empty()) {
-		same_ = same;
-		if (auto const others = diff_text(same); !others.empty()) {
-			others_ = others;
-			return !others.empty();
+	if (same_ = move(same_text(stringsA_, stringsB_)); !same_.empty()) {
+		if (others_ = move(diff_text(same_)); !others_.empty()) {
+			return true;
 		}
 	}
 	return false;
@@ -81,7 +83,7 @@ string Parser::print_lines(Set const set, int const start, int const end) const 
 	auto const& data = is_a ? stringsA_ : stringsB_;
 	auto const prefix = is_a ? "< " : "> ";
 	
-	for (int i = start; i < end; i++)
+	for (auto i = start; i < end; i++)
 		ss << prefix << data[i] << endl;
 	ss << prefix << data[end];
 	
@@ -98,7 +100,7 @@ TokensVector Parser::diff_text(TokensVector const& same) const noexcept {
 	Token* prv = nullptr;	// previous token
 	
 	for (int i = 0; i < same.size(); i++) {
-		auto& token = same[i];
+		auto const& token = same[i];
 		
 		auto const startA = prv ? (prv->a()->end() + 1) : 0;
 		auto const endA = token->a()->start() - 1;
@@ -138,30 +140,30 @@ TokensVector Parser::diff_text(TokensVector const& same) const noexcept {
  \param rows_b wektor linii tekstu zbioru B
  \return wektor obiektów 'Token' zawierających informacje o wspólnych liniach.
  */
-TokensVector Parser::same_text(LinesVector const& rows_a, LinesVector const& rows_b) const noexcept {
+TokensVector Parser::same_text(LinesVector const& rowsA, LinesVector const& rowsB) const noexcept {
 	TokensVector tokens;
 	
-	auto const lens = shared::lcs(rows_a, rows_b);
-	auto i = static_cast<int>(rows_a.size()) - 1;
-	auto j = static_cast<int>(rows_b.size()) - 1;
+	auto const lens = move(lcs(rowsA, rowsB));
+	auto i = static_cast<int>(rowsA.size()) - 1;
+	auto j = static_cast<int>(rowsB.size()) - 1;
 	
 	while (i >= 0 && j >= 0) {
 		if (stringsA_[i] == stringsB_[j]) {
 			if (!tokens.empty()) {
-				const auto token = tokens.back().get();
+				auto const token = tokens.back().get();
 				if (token->a()->is_below(i) && token->b()->is_below(j)) {
 					token->a()->start(i);
 					token->b()->start(j);
 				}
 				else {
-					const auto a = make_shared<Range>(i);
-					const auto b = make_shared<Range>(j);
+					auto const a = make_shared<Range>(i);
+					auto const b = make_shared<Range>(j);
 					tokens.push_back(make_shared<Token>(a, b));
 				}
 			}
 			else {
-				const auto a = make_shared<Range>(i);
-				const auto b = make_shared<Range>(j);
+				auto const a = make_shared<Range>(i);
+				auto const b = make_shared<Range>(j);
 				tokens.push_back(make_shared<Token>(a, b));
 			}
 			--i;

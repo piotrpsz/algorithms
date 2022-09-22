@@ -29,18 +29,17 @@ string adjust(string const& text, int const length, bool const left) {
  \param rows_b wektor linii tekstu zbioru B
  \return tablica 2D (wektor wektorów) z informacji o wynikach porównania.
  */
-Vector2D lcs(LinesVector const& rows_a, LinesVector const& rows_b) noexcept {
-	auto const m = static_cast<int>(rows_a.size());
-	auto const n = static_cast<int>(rows_b.size());
+Vector2D lcs(LinesVector const& rowsA, LinesVector const& rowsB) noexcept {
+	auto const m = rowsA.size();
+	auto const n = rowsB.size();
 
 	Vector2D lens(m+1);
-	for (int i = 0; i < (m+1); i++) {
+	for (auto i = 0; i < (m+1); i++)
 		lens[i] = vector<int>(n+1);
-	}
 	
-	for (int i = 0; i < m; i++)
-		for (int  j = 0; j < n; j++)
-			if (rows_a[i] == rows_b[j])
+	for (auto i = 0; i < m; i++)
+		for (auto  j = 0; j < n; j++)
+			if (rowsA[i] == rowsB[j])
 				lens[i+1][j+1] = 1 + lens[i][j];
 			else
 				lens[i+1][j+1] = max(lens[i+1][j], lens[i][j+1]);
@@ -78,13 +77,13 @@ string file2str(string const& fpath) {
  */
 LinesVector split(string const& text) noexcept {
 	LinesVector tokens;
-	std::vector<char> line;
+	std::string line; 
 	
 	for (int i = 0; i < text.size(); i++) {
-		auto const& c = text[i];
+		auto const c = text[i];
 		if (c == '\n') {
-			tokens.push_back(string(line.begin(), line.end()));
-			line.clear();
+			tokens.push_back(std::move(line));
+			line.clear();	// nie mamy gwarancji co zawiera line po move
 			continue;
 		}
 		line.push_back(c);

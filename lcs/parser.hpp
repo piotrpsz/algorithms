@@ -29,6 +29,12 @@ class Parser final {
 public:
 	Parser(std::vector<std::string> const&, std::vector<std::string> const&);
 	Parser(std::string const&, std::string const&);
+	Parser() = delete;
+	Parser(Parser const&) = delete;
+	Parser(Parser&&) = delete;
+	~Parser() = default;
+	Parser& operator=(Parser const&) = delete;
+	Parser& operator=(Parser&&) = delete;
 
 	bool run();
 	void print_diff() const noexcept;
