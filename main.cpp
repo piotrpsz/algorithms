@@ -15,10 +15,19 @@
 #include "way3.hpp"
 #include "roman.hpp"
 #include "rabin-karp.hpp"
+#include "bitset.hpp"
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
+	Bitset bs{15};
+	bs.toggle(8);
+	cout << bs << endl;
+	cout << "is set: " << (bs.is_set(8) ? "true" : "false") << endl;
+	bs.unset(8);
+	cout << bs << endl;
+
+
 	// auto idx = RabinKarp::index_of("Piotr x Pszczolkowski", "i", 2);
 	// cout << idx << endl;
 	// Way3 w;
@@ -28,13 +37,13 @@ int main(int argc, const char * argv[]) {
 	// cout << r << endl;
 	
 	
-	std::string pathA { "/Users/piotr/test/test1.txt" };
-	std::string pathB { "/Users/piotr/test/test2.txt" };
-	auto p = Parser(pathA, pathB);
-	if (p.run())
-		p.print_diff();
+	// std::string pathA { "/Users/piotr/test/test1.txt" };
+	// std::string pathB { "/Users/piotr/test/test2.txt" };
+	// auto p = Parser(pathA, pathB);
+	// if (p.run())
+	// 	p.print_diff();
 	
 
-	// std::cout << "OK\n";
+	std::cout << "OK\n";
 	return 0;
 }
