@@ -1,5 +1,5 @@
 
-#include "bitset.hpp"
+#include "bitset.h"
 #include <sstream>
 #include <bitset>
 

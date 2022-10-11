@@ -10,6 +10,7 @@ add_subdirectory("tree_avl")
 add_subdirectory("strings")
 add_subdirectory("hash")
 add_subdirectory("bitset")
+add_subdirectory("bloom")
 add_executable(algo main.cpp)
 
 target_link_libraries(algo PUBLIC
@@ -19,7 +20,8 @@ target_link_libraries(algo PUBLIC
     tree_avl
     strings
     hash
-    bitset)
+    bitset
+    bloom)
 
 target_include_directories(algo PUBLIC
                           "${PROJECT_BINARY_DIR}"

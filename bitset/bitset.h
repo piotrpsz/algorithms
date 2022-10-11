@@ -20,7 +20,7 @@ public:
     * @brief Construct a new Bitset object
     * @param m - requested number of bits
     */
-    Bitset(uint m) : m_(m - 1) {
+    Bitset(uint const m) : m_(m - 1) {
         ssize_t n = m / block_size;
         if (m % block_size)
             ++n;

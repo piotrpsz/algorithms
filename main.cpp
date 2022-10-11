@@ -15,17 +15,37 @@
 #include "way3.hpp"
 #include "roman.hpp"
 #include "rabin-karp.hpp"
-#include "bitset.hpp"
+#include "bitset.h"
+#include "murmur.h"
+#include "bloom.h"
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-	Bitset bs{15};
-	bs.toggle(8);
-	cout << bs << endl;
-	cout << "is set: " << (bs.is_set(8) ? "true" : "false") << endl;
-	bs.unset(8);
-	cout << bs << endl;
+	BloomFilter bf{10, 0.1};
+	cout << bf << endl << endl;
+	bf.insert("1");
+	bf.insert("2");
+	bf.insert("42");
+
+	cout << " 1: " << (bf.contains("1") ? "yes" : "no") << endl;
+	cout << " 2: " << (bf.contains("2") ? "yes" : "no") << endl;
+	cout << " 3: " << (bf.contains("3") ? "yes" : "no") << endl;
+	cout << "42: " << (bf.contains("42") ? "yes" : "no") << endl;
+	cout << "43: " << (bf.contains("43") ? "yes" : "no") << endl;
+
+
+	// cout << Murmur::hash3("Hello") << endl;
+	// cout << i32(Murmur::hash3("Hello", 5)) << endl;
+	// cout << i32(Murmur::hash3("Hello", 20)) << endl;
+	// cout << Murmur::hash3("Hello", 20) << endl;
+
+	// Bitset bs{15};
+	// bs.toggle(8);
+	// cout << bs << endl;
+	// cout << "is set: " << (bs.is_set(8) ? "true" : "false") << endl;
+	// bs.unset(8);
+	// cout << bs << endl;
 
 
 	// auto idx = RabinKarp::index_of("Piotr x Pszczolkowski", "i", 2);
