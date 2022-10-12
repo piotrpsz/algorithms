@@ -18,10 +18,19 @@
 #include "bitset.h"
 #include "murmur.h"
 #include "bloom.h"
+#include "shared.h"
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
+	int const n = 400;
+	auto const data = shared::random_bytes(n);
+	for (auto i = 0; i < n; i++)
+		cout << int(data[i]) << ", ";
+	cout << endl;
+
+
+	/*
 	BloomFilter bf{10, 0.1};
 	cout << bf << endl << endl;
 	bf.insert("1");
@@ -33,7 +42,7 @@ int main(int argc, const char * argv[]) {
 	cout << " 3: " << (bf.contains("3") ? "yes" : "no") << endl;
 	cout << "42: " << (bf.contains("42") ? "yes" : "no") << endl;
 	cout << "43: " << (bf.contains("43") ? "yes" : "no") << endl;
-
+	*/
 
 	// cout << Murmur::hash3("Hello") << endl;
 	// cout << i32(Murmur::hash3("Hello", 5)) << endl;

@@ -12,7 +12,6 @@
 #include <fstream>
 
 using namespace std;
-using namespace shared;
 
 /**
   Porownanie linii z wektorow A i B.

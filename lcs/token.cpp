@@ -31,7 +31,7 @@ ostream& operator<<(ostream& s, Token const& token) {
 	auto a = token.a()->str();
 	auto b = token.b()->str();
 	
-	ss << shared::adjust(a, 7, false) << " - " << shared::adjust(b, 7, true);
+	ss << adjust(a, 7, false) << " - " << adjust(b, 7, true);
 	
 	s << ss.str();
 	return s;
