@@ -1,4 +1,7 @@
 #include "shared.h"
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
 #include <array>
 #include <algorithm>
 #include <iostream>
@@ -16,9 +19,30 @@ vector<uint8_t> shared::random_bytes(int const n) {
 
     vector<uint8_t> data;
     data.reserve(n);
-    
+
     for (auto i = 0; i < n; i++) {
         data.push_back(static_cast<uint8_t>(ud(mtgen)));
     }
     return data;
+}
+
+/**
+ * @brief saves n numbers (64 bit) to a file.
+ * 
+ * @param n number of numbers
+ * @param path path to the file
+ */
+void shared::random_uint64_to_file(int const n, string const path) {
+
+}
+
+/**
+ * @brief gets home directory of current user.
+ * 
+ * @return string home directory path.
+ */
+string shared::home_dir() {
+    if (auto const path = getenv("HOME"); path)
+        return path;
+    return getpwuid(getuid())->pw_dir;
 }

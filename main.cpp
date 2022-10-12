@@ -23,12 +23,20 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-	int const n = 400;
+	string path {getenv("HOME")};
+	cout << path << endl;
+	cout << shared::home_dir() << endl;
+
+	// unsigned long x = 1000000000000;
+
+	// cout << (8 * sizeof(unsigned )) << endl;
+/*
+	int const n = 4;
 	auto const data = shared::random_bytes(n);
 	for (auto i = 0; i < n; i++)
 		cout << int(data[i]) << ", ";
 	cout << endl;
-
+*/
 
 	/*
 	BloomFilter bf{10, 0.1};
